@@ -1,0 +1,135 @@
+##弹性布局
+  <div class="content">
+    <div>1</div>
+    <div>2</div>
+  </div>
+
+  .content{
+    display:flex;
+  }
+
+  1.content div{
+      flex:1;       //实现多个标签内容平均分配宽度
+    }
+  2.content div:first-child{
+      width: ;      //一个或多个标签内容已经固定宽度
+      ...
+    }
+    content div:last-child{
+        flex:1;       //剩余标签内容平均分配剩余宽度，只有一个则占完剩余宽度
+    }
+
+##vmin和vmax（1/100）
+如果浏览器设置为1100px宽、700px高，1vmin会是7px,1vmax为11px。
+如果宽度设置为800px，高度设置为1080px，1vmin将会等于8px而1vmax将会是10.8px
+
+##固定定位：position:fixed
+left/bottom定位
+
+##Bus总线
+main.js中
+//定义总线
+const Bus = new Vue();
+data : {
+    Bus
+  }
+*传值
+this.$root.Bus.$emit("eventName",值);
+*接收数据
+（var _this=this   [保存this值]）
+this.$root.Bus.$on("eventName",function(data){
+  //回调函数的参数data是接收到的值
+  //传值和接收值时第一个参数eventName一样
+  //回调函数里的this不一样，需要提前保存
+});
+*卸载总线
+//注册的总线事件要在组件销毁时卸载，否则会多次挂载，造成触发一次但多个响应的情况
+//可以在离开界面时注销bus。
+beforeDestroy () {
+  this.$root.Bus.$off();
+}
+
+##项目中安装axios
+cnpm i axios --save-dev
+main.js中引入axios
+import axios from "axios";
+Vue.prototype.axios=axios;
+
+
+安装全局脚手架（2.x）
+cnpm install --global vue-cli
+
+查看全局包位置
+cnpm root -g
+
+vue -V查看是否安装成功
+
+创建工程（除了安装路由都是“no”）
+vue init webpack projectName
+
+cd projectName
+cnpm i
+npm run dev
+
+build文件夹
+最后三个分别是
+webpack基本配置，开发环境配置，生产环境配置
+
+config文件夹
+index.js里可配置跨域(添加对应后台地址)
+proxyTable: {
+	"/api":{
+		target:"http://localhost:9090/",
+		changeOrigin:true,
+		pathRewrite:{"^/api":""}
+	}
+}
+
+src文件夹
+	assets文件夹：放置资源（图片，css,js）
+	components文件夹:vue组件
+	router文件夹:index.js路由配置
+	App.vue:静态文件入口
+	main.js:入口文件
+
+static文件夹：webpack不会打包该文件夹内的资源
+
+package.json:项目描述
+
+项目思路：
+先创建三大路由组件（vue文件）
+router文件夹里index.js里配置路由
+
+在App.vue里引入和注册的组件可以在所有路由组件页面中显示
+
+fixNav.vue（底部导航栏）
+创建ul的路由跳转（三个路由组件的跳转）
+在App.vue中引入注册使用（所有页面都显示）
+
+city.vue
+在film.vue中引入注册和使用（在film页面显示）
+
+film.vue
+制作顶部导航栏
+制作下划线（可滑动）
+制作城市列表
+
+项目中安装axios
+cnpm i axios --save-dev
+main.js中引入axios
+import axios from "axios";
+Vue.prototype.axios=axios;
+配置跨域
+server目录里cnpm i重新安装包 npm run start运行
+再npm run dev开启
+
+添加滑动条
+安装：cnpm i better-scroll --save
+使用的地方引入
+
+使用轮播图
+cnpm i mint-ui --save
+main.js引入
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
+Vue.use(MintUI)
